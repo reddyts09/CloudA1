@@ -1,0 +1,12 @@
+Description=uWSGI Daemon 
+After=network.target
+[Service]
+User=Ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/CloudA1
+ExecStart=/home/ubuntu/CloudA1/uwsgi-tut/bin/uwsgi --ini /etc/uwsgi/sites/mysite.ini
+Restart=always 
+Type=notify
+NotifyAccess=all
+[Install]
+WantedBy=multi-user.target
