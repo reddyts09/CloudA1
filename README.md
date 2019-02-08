@@ -5,7 +5,7 @@ and hosting it behind Nginx on port 80 and then deploying the saved Django appli
 # Configuration Details:
 Steps:
 1. To connect to the aws cloud service:
--ssh -i key.pem ubuntu@your-aws-instance-public-ip -i key.pem
+- ssh -i key.pem ubuntu@your-aws-instance-public-ip -i key.pem
 
 2. After logging in:
 -sudo apt-get update 
