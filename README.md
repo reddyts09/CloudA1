@@ -3,7 +3,6 @@ Setting up a Django Application with a wsgi server
 and hosting it behind Nginx on port 80 and then deploying the saved Django application from github to AWS.
 
 # Configuration Details:
-Steps:
 1. To connect to the aws cloud service:
 - ssh -i key.pem ubuntu@your-aws-instance-public-ip -i key.pem
 
@@ -103,7 +102,7 @@ Add the lines below to the bottom of the file
 - Django,AWS: Web Framework used
 - HTML,CSS,JavaScript,Python: Web Development Applications used
 - uwsgi, nginx: Servers used
-* Github: repository for code
+- Github: repository for code
 
 # Acknowledgements
-I thank Prof.Giridhar for provding me with the opportunity to work on this project that deals with hands on experience with Cloud, AWS and Django framework.
+I Thank Prof.Giridhar for provding me with the opportunity to work on this project that deals with hands on experience with Cloud, AWS and Django framework.
