@@ -24,7 +24,7 @@ Steps:
 - sudo mkdir /etc/uwsgi/sites
 - sudo nano /etc/uwsgi/sites/mysite.ini
 - Insert the following lines:
-   '''[uwsgi]
+   ```[uwsgi]
    chdir = /home/ubuntu/CloudA1/uwsgi-tut/mysite
    home = /home/ubuntu/CloudA1/uwsgi-tut
    module = mysite.wsgi:application
@@ -33,25 +33,24 @@ Steps:
    socket = /home/ubuntu/CloudA1/uwsgi-tut/mysite/mysite.sock
    chmod-socket = 666
    vacuum = true
-   harakiri = 30'''
+   harakiri = 30```
  You can test if this works by running the following command:
 - uwsgi --ini /etc/uwsgi/sites/mysite.ini
 
 6. Now we create the uwsgi.service daemon file which goes in the /etc/systemd/system directory. Insert the following lines:
-[Unit]
-Description=uWSGI Daemon 
-After=network.target
-[Service]
-User=Ubuntu
-Group=www-data
-WorkingDirectory=/home/ubuntu/CloudA1
-ExecStart=/home/ubuntu/CloudA1/uwsgi-tut/bin/uwsgi --ini /etc/uwsgi/sites/mysite.ini
-Restart=always 
-Type=notify
-NotifyAccess=all
-[Install]
-WantedBy=multi-user.target
-
+   ```[Unit]
+   Description=uWSGI Daemon 
+   After=network.target
+   [Service]
+   User=Ubuntu
+   Group=www-data
+   WorkingDirectory=/home/ubuntu/CloudA1
+   ExecStart=/home/ubuntu/CloudA1/uwsgi-tut/bin/uwsgi --ini /etc/uwsgi/sites/mysite.ini
+   Restart=always 
+   Type=notify
+   NotifyAccess=all
+   [Install]
+   WantedBy=multi-user.target```
 Now let’s tell the systemd to run our service:
 - sudo systemctl daemon-reload 
 - sudo systemctl start uwsgi 
@@ -61,34 +60,34 @@ Now let’s tell the systemd to run our service:
 -sudo apt-get install nginx
 -sudo service nginx start
 -sudo vim /etc/nginx/sites-available/mysite_nginx.conf
-Insert the following lines:
-the upstream component nginx needs to connect to
-upstream django {
+- Insert the following lines:
+   ```the upstream component nginx needs to connect to
+   upstream django {
     server unix:///home/ubuntu/CloudA1/uwsgi-tut/mysite/mysite.sock; for a file socket
     #server 127.0.0.1:8001; for a web port socket (we'll use this first)
-}
-configuration of the server
-server {
-    the port your site will be served on
-    listen      80;
-    the domain name it will serve for
-    server_name 18.191.242.165; substitute your machine's IP address or FQDN
-    charset     utf-8;
-    max upload size
-    client_max_body_size 75M;   adjust to taste
-    Django media
-    location /media  {
-        root /home/ubuntu/CloudA1/uwsgi-tut/mysite/media; your Django project's media files - amend as required
-    }
-    location /static {
-        alias /home/ubuntu/CloudA1/uwsgi-tut/mysite/static; your Django project's static files - amend as required
-    }
-    Finally, send all non-media requests to the Django server.
-    location / {
-        uwsgi_pass  django;
-        include     /home/ubuntu/CloudA1/uwsgi-tut/mysite/uwsgi_params; the uwsgi_params file you installed
-    }
-}
+  }
+  configuration of the server
+   server {
+       the port your site will be served on
+       listen      80;
+       the domain name it will serve for
+       server_name 18.191.242.165; substitute your machine's IP address or FQDN
+       charset     utf-8;
+       max upload size
+       client_max_body_size 75M;   adjust to taste
+       Django media
+       location /media  {
+           root /home/ubuntu/CloudA1/uwsgi-tut/mysite/media; your Django project's media files - amend as required
+       }
+       location /static {
+           alias /home/ubuntu/CloudA1/uwsgi-tut/mysite/static; your Django project's static files - amend as required
+       }
+       Finally, send all non-media requests to the Django server.
+       location / {
+           uwsgi_pass  django;
+           include     /home/ubuntu/CloudA1/uwsgi-tut/mysite/uwsgi_params; the uwsgi_params file you installed
+       }
+   }```
 We need to add this to sites-enabled directory, in order to be picked up by Nginx. We can create a symlink to the file:
 - sudo ln -s /etc/nginx/sites-available/mysite_nginx.conf /etc/nginx/sites-enabled/
 That’s all. Now restart nginx and you’re all set:
