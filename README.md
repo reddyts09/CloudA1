@@ -51,7 +51,7 @@ Steps:
    NotifyAccess=all
    [Install]
    WantedBy=multi-user.target```
- Now let’s tell the systemd to run our service:
+  Now let’s tell the systemd to run our service:
 - sudo systemctl daemon-reload 
 - sudo systemctl start uwsgi 
 - sudo systemctl enable uwsgi
@@ -90,6 +90,7 @@ Steps:
    }
  We need to add this to sites-enabled directory, in order to be picked up by Nginx. We can create a symlink to the file:
 - sudo ln -s /etc/nginx/sites-available/mysite_nginx.conf /etc/nginx/sites-enabled/
+
  That’s all. Now restart nginx and you’re all set:
 - sudo service nginx restart
 
