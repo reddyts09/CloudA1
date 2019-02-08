@@ -32,7 +32,7 @@ and hosting it behind Nginx on port 80 and then deploying the saved Django appli
    socket = /home/ubuntu/CloudA1/uwsgi-tut/mysite/mysite.sock
    chmod-socket = 666
    vacuum = true
-   harakiri = 30```
+   harakiri = 30
  You can test if this works by running the following command:
 - uwsgi --ini /etc/uwsgi/sites/mysite.ini
 
@@ -49,7 +49,7 @@ and hosting it behind Nginx on port 80 and then deploying the saved Django appli
    Type=notify
    NotifyAccess=all
    [Install]
-   WantedBy=multi-user.target```
+   WantedBy=multi-user.target
   Now let’s tell the systemd to run our service:
 - sudo systemctl daemon-reload 
 - sudo systemctl start uwsgi 
