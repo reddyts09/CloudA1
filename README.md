@@ -51,15 +51,15 @@ Steps:
    NotifyAccess=all
    [Install]
    WantedBy=multi-user.target```
-Now let’s tell the systemd to run our service:
+ Now let’s tell the systemd to run our service:
 - sudo systemctl daemon-reload 
 - sudo systemctl start uwsgi 
 - sudo systemctl enable uwsgi
 
 7. Nginx config:
--sudo apt-get install nginx
--sudo service nginx start
--sudo vim /etc/nginx/sites-available/mysite_nginx.conf
+- sudo apt-get install nginx
+- sudo service nginx start
+- sudo vim /etc/nginx/sites-available/mysite_nginx.conf
 - Insert the following lines:
    ```the upstream component nginx needs to connect to
    upstream django {
@@ -87,10 +87,10 @@ Now let’s tell the systemd to run our service:
            uwsgi_pass  django;
            include     /home/ubuntu/CloudA1/uwsgi-tut/mysite/uwsgi_params; the uwsgi_params file you installed
        }
-   }```
-We need to add this to sites-enabled directory, in order to be picked up by Nginx. We can create a symlink to the file:
+   }
+ We need to add this to sites-enabled directory, in order to be picked up by Nginx. We can create a symlink to the file:
 - sudo ln -s /etc/nginx/sites-available/mysite_nginx.conf /etc/nginx/sites-enabled/
-That’s all. Now restart nginx and you’re all set:
+ That’s all. Now restart nginx and you’re all set:
 - sudo service nginx restart
 
 8. You need to have allowed hosts configured to allow those domains. Edit the mysite>settings.py to accomodate the host:
