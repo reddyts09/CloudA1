@@ -23,8 +23,8 @@ Steps:
 5. To store our config options, we need to create an ‘ini’ file which will contain all the uwsgi config details (like which virtualenv to use, where is the home folder, etc arguments we passed while executing the command to run the server).
 - sudo mkdir /etc/uwsgi/sites
 - sudo nano /etc/uwsgi/sites/mysite.ini
-   Insert the following lines:
-   [uwsgi]
+- Insert the following lines:
+   '''[uwsgi]
    chdir = /home/ubuntu/CloudA1/uwsgi-tut/mysite
    home = /home/ubuntu/CloudA1/uwsgi-tut
    module = mysite.wsgi:application
@@ -33,7 +33,7 @@ Steps:
    socket = /home/ubuntu/CloudA1/uwsgi-tut/mysite/mysite.sock
    chmod-socket = 666
    vacuum = true
-   harakiri = 30
+   harakiri = 30'''
  You can test if this works by running the following command:
 - uwsgi --ini /etc/uwsgi/sites/mysite.ini
 
