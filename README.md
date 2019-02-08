@@ -8,7 +8,7 @@ and hosting it behind Nginx on port 80 and then deploying the saved code on gith
 # Build With
 * Django,AWS: Web Framework used
 * HTML,CSS,JavaScript,Python: Web Development Applications used
-* wsgi, nginx: Servers used
+* uwsgi, nginx: Servers used
 * Github: repository for code
 
 # Acknowledgements
