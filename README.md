@@ -8,21 +8,21 @@ Steps:
 - ssh -i key.pem ubuntu@your-aws-instance-public-ip -i key.pem
 
 2. After logging in:
--sudo apt-get update 
--sudo apt-get install python-pip python-dev nginx git
+- sudo apt-get update 
+- sudo apt-get install python-pip python-dev nginx git
 
 3. Download the Django project from git:
--sudo apt-get update 
--sudo pip install virtualenv 
--git clone https://github.com/reddyts09/CloudA1.git
+- sudo apt-get update 
+- sudo pip install virtualenv 
+- git clone https://github.com/reddyts09/CloudA1.git
 
 4. Install Django and uwsgi
--pip install django
--sudo pip install uwsgi
+- pip install django
+- sudo pip install uwsgi
 
 5. To store our config options, we need to create an ‘ini’ file which will contain all the uwsgi config details (like which virtualenv to use, where is the home folder, etc arguments we passed while executing the command to run the server).
--sudo mkdir /etc/uwsgi/sites
--sudo nano /etc/uwsgi/sites/mysite.ini
+- sudo mkdir /etc/uwsgi/sites
+- sudo nano /etc/uwsgi/sites/mysite.ini
 
 Insert the following lines:
 [uwsgi]
