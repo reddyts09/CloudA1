@@ -23,30 +23,24 @@ Steps:
 5. To store our config options, we need to create an ‘ini’ file which will contain all the uwsgi config details (like which virtualenv to use, where is the home folder, etc arguments we passed while executing the command to run the server).
 - sudo mkdir /etc/uwsgi/sites
 - sudo nano /etc/uwsgi/sites/mysite.ini
-
 Insert the following lines:
 [uwsgi]
 chdir = /home/ubuntu/CloudA1/uwsgi-tut/mysite
 home = /home/ubuntu/CloudA1/uwsgi-tut
 module = mysite.wsgi:application
-
 master = true
 processes = 5
-
 socket = /home/ubuntu/CloudA1/uwsgi-tut/mysite/mysite.sock
-
 chmod-socket = 666
 vacuum = true
 harakiri = 30
-
 You can test if this works by running the following command:
--uwsgi --ini /etc/uwsgi/sites/mysite.ini
+- uwsgi --ini /etc/uwsgi/sites/mysite.ini
 
 6. Now we create the uwsgi.service daemon file which goes in the /etc/systemd/system directory. Insert the following lines:
 [Unit]
 Description=uWSGI Daemon 
 After=network.target
- 
 [Service]
 User=Ubuntu
 Group=www-data
@@ -55,14 +49,13 @@ ExecStart=/home/ubuntu/CloudA1/uwsgi-tut/bin/uwsgi --ini /etc/uwsgi/sites/mysite
 Restart=always 
 Type=notify
 NotifyAccess=all
-
 [Install]
 WantedBy=multi-user.target
 
 Now let’s tell the systemd to run our service:
--sudo systemctl daemon-reload 
--sudo systemctl start uwsgi 
--sudo systemctl enable uwsgi
+- sudo systemctl daemon-reload 
+- sudo systemctl start uwsgi 
+- sudo systemctl enable uwsgi
 
 7. Nginx config:
 -sudo apt-get install nginx
@@ -74,7 +67,6 @@ upstream django {
     server unix:///home/ubuntu/CloudA1/uwsgi-tut/mysite/mysite.sock; for a file socket
     #server 127.0.0.1:8001; for a web port socket (we'll use this first)
 }
-
 configuration of the server
 server {
     the port your site will be served on
@@ -98,19 +90,19 @@ server {
     }
 }
 We need to add this to sites-enabled directory, in order to be picked up by Nginx. We can create a symlink to the file:
--sudo ln -s /etc/nginx/sites-available/mysite_nginx.conf /etc/nginx/sites-enabled/
+- sudo ln -s /etc/nginx/sites-available/mysite_nginx.conf /etc/nginx/sites-enabled/
 That’s all. Now restart nginx and you’re all set:
--sudo service nginx restart
+- sudo service nginx restart
 
 8. You need to have allowed hosts configured to allow those domains. Edit the mysite>settings.py to accomodate the host:
--ALLOWED_HOST = ['18.191.242.165']
+- ALLOWED_HOST = ['18.191.242.165']
 Add the lines below to the bottom of the file 
--STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+- STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 # Built With
-* Django,AWS: Web Framework used
-* HTML,CSS,JavaScript,Python: Web Development Applications used
-* uwsgi, nginx: Servers used
+- Django,AWS: Web Framework used
+- HTML,CSS,JavaScript,Python: Web Development Applications used
+- uwsgi, nginx: Servers used
 * Github: repository for code
 
 # Acknowledgements
